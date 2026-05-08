@@ -1706,6 +1706,7 @@ def mark_notification_as_read(notification_id: int):
         "success": True,
         "message": "Notification marked as read.",
     }
+
 @app.post("/api/orders/{order_id}/pay")
 def pay_order(order_id: int, payload: PayOrderRequest):
     waiter_id = payload.waiter_id

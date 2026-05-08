@@ -10,6 +10,7 @@ def get_connection():
     return psycopg.connect(settings.database_url, row_factory=dict_row)
 
 
+
 def fetch_all(query: str, params: tuple[Any, ...] = ()) -> list[dict]:
     with get_connection() as conn:
         with conn.cursor() as cur:
