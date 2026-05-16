@@ -86,6 +86,7 @@ CREATE TABLE IF NOT EXISTS staff_users (
     id SERIAL PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
     role VARCHAR(50) NOT NULL,
+    pin_code VARCHAR(10),
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -124,8 +125,14 @@ CREATE TABLE IF NOT EXISTS notifications (
 CREATE TABLE IF NOT EXISTS payments (
     id SERIAL PRIMARY KEY,
     order_id INTEGER REFERENCES orders(id),
+    session_id INTEGER REFERENCES table_sessions(id),
+    table_id INTEGER REFERENCES restaurant_tables(id),
     amount DECIMAL(10, 2) NOT NULL,
     payment_method VARCHAR(20) DEFAULT 'card',
+    status VARCHAR(20) DEFAULT 'pending',
+    confirmed_by_waiter_id INTEGER,
+    confirmation_pin VARCHAR(10),
+    paid_at TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
