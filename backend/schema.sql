@@ -115,7 +115,9 @@ CREATE TABLE IF NOT EXISTS order_status_logs (
 -- Notifications
 CREATE TABLE IF NOT EXISTS notifications (
     id SERIAL PRIMARY KEY,
-    user_id INTEGER,
+    recipient_staff_id INTEGER REFERENCES staff_users(id),
+    related_order_id INTEGER REFERENCES orders(id),
+    related_table_id INTEGER REFERENCES restaurant_tables(id),
     message TEXT NOT NULL,
     is_read BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
