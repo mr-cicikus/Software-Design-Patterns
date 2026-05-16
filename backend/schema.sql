@@ -128,3 +128,23 @@ CREATE TABLE IF NOT EXISTS payments (
     payment_method VARCHAR(20) DEFAULT 'card',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Waiter Calls
+CREATE TABLE IF NOT EXISTS waiter_calls (
+    id SERIAL PRIMARY KEY,
+    session_id INTEGER REFERENCES table_sessions(id),
+    table_id INTEGER REFERENCES restaurant_tables(id),
+    request_type VARCHAR(50),
+    status VARCHAR(20) DEFAULT 'pending',
+    handled_by_staff_id INTEGER,
+    handled_at TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Delivery Verifications
+CREATE TABLE IF NOT EXISTS delivery_verifications (
+    id SERIAL PRIMARY KEY,
+    order_id INTEGER REFERENCES orders(id),
+    staff_id INTEGER,
+    verified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
